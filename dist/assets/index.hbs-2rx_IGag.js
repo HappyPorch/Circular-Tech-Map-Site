@@ -1,1 +1,0 @@
-import"./main-CC6vhd9u.js";const o=new URLSearchParams(window.location.search),r=o.get("organization-name")??"",e=document.querySelector("#ce-tech-suggest-correction-form");e.src=`${e.dataset.src}${r}`;
