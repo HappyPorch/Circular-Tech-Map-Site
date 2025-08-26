@@ -1,90 +1,176 @@
 {
-    "$schema": "https://circulartechmap.com/schema/check_record.json",
-    "$id": "https://circulartechmap.com/schema/check_record.json",
-    "title": "Agent Decision Record",
-    "type": "object",
-    "properties": {
-      "decisions": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "field": { "type": "string" },
-            "chosen_value": { "type": "string" },
-            "evidence": { "type": "string" },
-            "reasoning": { "type": "string" },
-            "confidence": { "type": "string", "enum": ["High", "Medium", "Low"] },
-            "notes": { "type": "string" }
-          },
-          "required": ["field", "chosen_value", "evidence", "reasoning", "confidence"]
-        }
-      },
-      "uncertainties": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "field": { "type": "string" },
-            "issue": { "type": "string" },
-            "impact": { "type": "string" }
-          },
-          "required": ["field", "issue", "impact"]
-        }
-      },
-      "changes": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "field": { "type": "string" },
-            "from": {},
-            "to": {},
-            "reason": { "type": "string" }
-          },
-          "required": ["field", "to", "reason"]
-        }
-      },
-      "validation": {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "CHECK_RECORD Schema",
+  "description": "Forgiving schema for CHECK_RECORD structure from Circular Economy Tech Map analysis system",
+  "required": [
+    "decisions",
+    "uncertainties", 
+    "changes",
+    "validation",
+    "technical_verification"
+  ],
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "description": "Array of field classification decisions made during analysis",
+      "items": {
         "type": "object",
+        "required": ["field", "chosen_value", "evidence", "reasoning", "confidence"],
         "properties": {
-          "schema": { "type": "string" },
-          "dependencies": { "type": "string" },
-          "consistency": { "type": "string" }
-        },
-        "required": ["schema", "dependencies", "consistency"]
-      },
-      "technical_verification": {
-        "type": "object",
-        "properties": {
-          "websites": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "url": { "type": "string", "format": "uri" },
-                "status": { "type": "string" },
-                "notes": { "type": "string" }
-              },
-              "required": ["url", "status"]
-            }
+          "field": {
+            "type": "string",
+            "description": "The field name being classified"
           },
-          "search_sources": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "source": { "type": "string" },
-                "url": { "type": "string", "format": "uri" },
-                "status": { "type": "string" },
-                "finding": { "type": "string" }
-              },
-              "required": ["source", "url", "status"]
-            }
+          "chosen_value": {
+            "description": "The value chosen for this field classification - can be any type"
+          },
+          "evidence": {
+            "type": "string",
+            "description": "What was found - evidence supporting the chosen classification"
+          },
+          "reasoning": {
+            "type": "string",
+            "description": "Why this classification was made - reasoning behind the decision"
+          },
+          "confidence": {
+            "type": "string",
+            "description": "Confidence level in the classification decision"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional clarifications, schema dependencies, alternatives considered"
           }
         },
-        "required": ["websites", "search_sources"]
+        "additionalProperties": true
       }
     },
-    "required": ["decisions", "uncertainties", "changes", "validation", "technical_verification"]
-  }
-  
+    "uncertainties": {
+      "type": "array",
+      "description": "Array of uncertainties and missing information identified during analysis",
+      "items": {
+        "type": "object",
+        "required": ["field", "issue", "impact"],
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "The field name with uncertainty"
+          },
+          "issue": {
+            "type": "string",
+            "description": "What is unclear or missing from available sources"
+          },
+          "impact": {
+            "type": "string",
+            "description": "How this affects confidence or categorisation of the analysis"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "changes": {
+      "type": "array",
+      "description": "Array of field changes made during analysis from original to new values",
+      "items": {
+        "type": "object",
+        "required": ["field", "reason"],
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "The field name that was changed"
+          },
+          "from": {
+            "description": "Original value before change - can be any type"
+          },
+          "to": {
+            "description": "New value after change - can be any type"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Short explanation for why this change was made"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validation": {
+      "type": "object",
+      "description": "Validation results for schema compliance, dependencies, and logical consistency",
+      "required": ["schema", "dependencies", "consistency"],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "description": "Schema validation result"
+        },
+        "dependencies": {
+          "type": "string",
+          "description": "Field dependencies validation result"
+        },
+        "consistency": {
+          "type": "string",
+          "description": "Logical consistency validation result"
+        }
+      },
+      "additionalProperties": true
+    },
+    "technical_verification": {
+      "type": "object",
+      "description": "Technical verification results including website checks and source validation",
+      "required": ["websites", "search_sources"],
+      "properties": {
+        "websites": {
+          "type": "array",
+          "description": "Website accessibility verification results",
+          "items": {
+            "type": "object",
+            "required": ["url", "status"],
+            "properties": {
+              "url": {
+                "type": "string",
+                "description": "Full URI that was checked for accessibility"
+              },
+              "status": {
+                "type": "string",
+                "description": "HTTP response status or accessibility result"
+              },
+              "notes": {
+                "type": "string",
+                "description": "One line summary of findings or additional context"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "search_sources": {
+          "type": "array",
+          "description": "External source verification and information gathering results",
+          "items": {
+            "type": "object",
+            "required": ["source", "url", "status", "finding"],
+            "properties": {
+              "source": {
+                "type": "string",
+                "description": "Name of the external source"
+              },
+              "url": {
+                "type": "string",
+                "description": "Full URI of the external source"
+              },
+              "status": {
+                "type": "string",
+                "description": "HTTP response status or accessibility result"
+              },
+              "finding": {
+                "type": "string",
+                "description": "One line summary of key findings from this source"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
