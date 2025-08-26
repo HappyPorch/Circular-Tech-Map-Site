@@ -1,0 +1,90 @@
+{
+    "$schema": "https://circulartechmap.com/schema/check_record.json",
+    "$id": "https://circulartechmap.com/schema/check_record.json",
+    "title": "Agent Decision Record",
+    "type": "object",
+    "properties": {
+      "decisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "field": { "type": "string" },
+            "chosen_value": { "type": "string" },
+            "evidence": { "type": "string" },
+            "reasoning": { "type": "string" },
+            "confidence": { "type": "string", "enum": ["High", "Medium", "Low"] },
+            "notes": { "type": "string" }
+          },
+          "required": ["field", "chosen_value", "evidence", "reasoning", "confidence"]
+        }
+      },
+      "uncertainties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "field": { "type": "string" },
+            "issue": { "type": "string" },
+            "impact": { "type": "string" }
+          },
+          "required": ["field", "issue", "impact"]
+        }
+      },
+      "changes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "field": { "type": "string" },
+            "from": {},
+            "to": {},
+            "reason": { "type": "string" }
+          },
+          "required": ["field", "to", "reason"]
+        }
+      },
+      "validation": {
+        "type": "object",
+        "properties": {
+          "schema": { "type": "string" },
+          "dependencies": { "type": "string" },
+          "consistency": { "type": "string" }
+        },
+        "required": ["schema", "dependencies", "consistency"]
+      },
+      "technical_verification": {
+        "type": "object",
+        "properties": {
+          "websites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": { "type": "string", "format": "uri" },
+                "status": { "type": "string" },
+                "notes": { "type": "string" }
+              },
+              "required": ["url", "status"]
+            }
+          },
+          "search_sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": { "type": "string" },
+                "url": { "type": "string", "format": "uri" },
+                "status": { "type": "string" },
+                "finding": { "type": "string" }
+              },
+              "required": ["source", "url", "status"]
+            }
+          }
+        },
+        "required": ["websites", "search_sources"]
+      }
+    },
+    "required": ["decisions", "uncertainties", "changes", "validation", "technical_verification"]
+  }
+  
