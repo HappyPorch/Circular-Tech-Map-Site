@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://circulartechmap.com/schema/enabler_suggest_check.json",
+  "title": "Enabler",
+  "description": "Schema for enabler objects with circularity categorization",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "Enabler Name"
+    },
+    "Website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Enabler primary URL"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Short, user friendly description of the enabler"
+    },
+    "TechMapRelevance": {
+      "type": "boolean",
+      "description": "True or False"
+    },
+    "Confidence": {
+      "type": "string",
+      "enum": ["High", "Medium", "Low"],
+      "description": "Confidence level"
+    },
+    "CircularityCategory": {
+      "type": "string",
+      "enum": ["Core", "Supporting", "Tangential"],
+      "description": "Circularity category classification"
+    },
+    "WhySuggested": {
+      "type": "string",
+      "description": "Justification for inclusion, including reasoning and evidence sources. Include URLs of supporting sources when possible"
+    }
+  },
+  "required": ["Name", "Website", "Description", "TechMapRelevance", "Confidence", "CircularityCategory", "WhySuggested"],
+  "additionalProperties": false
+}
