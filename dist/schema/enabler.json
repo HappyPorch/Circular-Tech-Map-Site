@@ -20,20 +20,6 @@
           "format": "date-time",
           "description": "Date added in ISO 8601 format"
         },
-        "dateLastCheckedAgent": {
-          "anyOf": [
-            { "type": "string", "format": "date-time" },
-            { "type": "null" }
-          ],
-          "description": "Date last checked by agent in ISO 8601 format"
-        },
-        "dateLastHumanVerified": {
-          "anyOf": [
-            { "type": "string", "format": "date-time" },
-            { "type": "null" }
-          ],
-          "description": "Date last verified by human in ISO 8601 format"
-        },
         "techMapRelevance": {
           "type": "object",
           "required": ["value", "confidence", "notes"],
@@ -165,28 +151,28 @@
               "enum": ["True", "False", "Unknown"]
             },
             "confidence": { "$ref": "#/definitions/confidence" },
-            "notes": { "type": "string", "description": "Markdown-formatted explanation of hardware component assessment" }
+            "notes": { "type": "string", "description": "Markdown-formatted explanation of hardware component assessment" },
+            "hardwareType": {
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "enum": ["IoT_Sensors", "Robotics", "Smart_Devices", "Industrial_Systems", "Other", "Unknown"]
+              },
+              "description": "Required if hardwareComponent.value is True. Indicates the types of hardware used."
+            },
+            "hardwareRole": {
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "enum": ["Data_Collection", "Physical_Processing", "User_Interface", "Asset_Tracking", "Unknown"]
+              },
+              "description": "Required if hardwareComponent.value is True. Indicates the role the hardware plays."
+            }
           }
-        },
-        "hardwareType": {
-          "type": "array",
-          "maxItems": 2,
-          "minItems": 1,
-          "items": {
-            "type": "string",
-            "enum": ["IoT_Sensors", "Robotics", "Smart_Devices", "Industrial_Systems", "Other", "Unknown"]
-          },
-          "description": "Required if hardwareComponent.value is True. Indicates the types of hardware used."
-        },
-        "hardwareRole": {
-          "type": "array",
-          "maxItems": 2,
-          "minItems": 1,
-          "items": {
-            "type": "string",
-            "enum": ["Data_Collection", "Physical_Processing", "User_Interface", "Asset_Tracking", "Unknown"]
-          },
-          "description": "Required if hardwareComponent.value is True. Indicates the role the hardware plays."
         },
         "rStrategy": {
           "type": "object",
@@ -295,7 +281,7 @@
             "properties": { "hardwareComponent": { "properties": { "value": { "const": "True" } } } }
           },
           "then": {
-            "required": ["hardwareType","hardwareRole"]
+            "properties": { "hardwareComponent": { "required": ["hardwareType","hardwareRole"] } }
           }
         },
         {
