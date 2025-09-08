@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/enabler-reference-schema.json",
+  "title": "Enabler Reference Schema",
+  "description": "Schema for enabler reference and suggestions response",
+  "type": "object",
+  "properties": {
+    "ReferenceEnablerName": {
+      "type": "string",
+      "description": "Name of the reference enabler"
+    },
+    "ReferenceEnablerId": {
+      "type": "string",
+      "description": "UUID of reference enabler"
+    },
+    "SuggestedEnablers": {
+      "type": "array",
+      "description": "Array of suggested enablers (can be empty)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Enabler name"
+          },
+          "Website": {
+            "type": "string",
+            "format": "uri",
+            "description": "Enabler website URL"
+          },
+          "Description": {
+            "type": "string",
+            "description": "Short, user-friendly description of the enabler"
+          },
+          "WhySuggested": {
+            "type": "string",
+            "description": "Explanation of why this enabler was suggested"
+          },
+          "SourceReferences": {
+            "type": "array",
+            "description": "Array of source references",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Source URL"
+                }
+              },
+              "required": ["url"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["Name", "Website", "Description", "WhySuggested", "SourceReferences"],
+        "additionalProperties": false
+      }
+    },
+    "SearchSummary": {
+      "type": "object",
+      "description": "Summary of search process",
+      "properties": {
+        "RejectedAsDuplicates": {
+          "type": "array",
+          "description": "Objects rejected as duplicates (can be empty)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "string",
+                "description": "Enabler name"
+              },
+              "Url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Enabler URL"
+              }
+            },
+            "required": ["Name", "Url"],
+            "additionalProperties": false
+          }
+        },
+        "RejectedByFilterRules": {
+          "type": "array",
+          "description": "Objects rejected by filter rules (can be empty)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "string",
+                "description": "Enabler name"
+              },
+              "Url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Enabler URL"
+              },
+              "WhyRejected": {
+                "type": "string",
+                "description": "Reasons why rejected"
+              }
+            },
+            "required": ["Name", "Url", "WhyRejected"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["RejectedAsDuplicates", "RejectedByFilterRules"],
+      "additionalProperties": false
+    },
+    "SearchQueriesUsed": {
+      "type": "array",
+      "description": "Array of search queries used (can be empty)",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["ReferenceEnablerName", "ReferenceEnablerId", "SuggestedEnablers", "SearchSummary", "SearchQueriesUsed"],
+  "additionalProperties": false
+}
