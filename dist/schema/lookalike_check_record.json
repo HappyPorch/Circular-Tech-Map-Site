@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/enabler-reference-schema.json",
+  "$id": "https://circulartechmap.com/schema/lookalike_check_record.json",
   "title": "Enabler Reference Schema",
   "description": "Schema for enabler reference and suggestions response",
   "type": "object",

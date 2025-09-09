@@ -37,6 +37,6 @@
       "description": "Justification for inclusion, including reasoning and evidence sources. Include URLs of supporting sources when possible"
     }
   },
-  "required": ["Name", "Website", "Description", "TechMapRelevance", "Confidence", "CircularityCategory", "WhySuggested"],
+  "required": ["Name", "Website", "Description", "TechMapRelevance", "Confidence", "WhySuggested"],
   "additionalProperties": false
 }

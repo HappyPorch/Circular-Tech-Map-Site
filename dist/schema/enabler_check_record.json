@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://circulartechmap.com/schema/enabler_check_record.json",
   "type": "object",
   "title": "CHECK_RECORD Schema",
   "description": "Forgiving schema for CHECK_RECORD structure from Circular Economy Tech Map analysis system",
