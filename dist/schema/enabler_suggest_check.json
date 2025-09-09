@@ -28,8 +28,19 @@
       "description": "Confidence level"
     },
     "CircularityCategory": {
-      "type": "string",
-      "enum": ["Core", "Supporting", "Tangential"],
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["Core", "Supporting", "Tangential"]
+        },
+        {
+          "type": "string",
+          "const": ""
+        },
+        {
+          "type": "null"
+        }
+      ],
       "description": "Circularity category classification"
     },
     "WhySuggested": {
